@@ -2,6 +2,19 @@
   hosts: localhost
   connection: local
   tasks:
+    - name: specific mirror because some have old packages
+      community.general.ini_file:
+        path: /etc/yum.repos.d/almalinux-baseos.repol
+        section: baseos
+        option: baseurl
+        value: https://almalinux.mirror.liteserver.nl/$releasever/baseos
+    - name: disable repo mirrors for AlmaLinux baseos
+      community.general.ini_file:
+        path: /etc/yum.repos.d/almalinux-baseos.repo
+        section: baseos
+        option: mirrorlist
+        value: "https://mirrors.almalinux.org/mirrorlist/$releasever/baseos"
+        state: absent
     - name: install updates
       ansible.builtin.dnf:
         name: "*"
