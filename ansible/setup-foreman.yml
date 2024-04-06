@@ -3,41 +3,43 @@
   connection: local
   tasks:
     - name: install updates
-      ansible.builtin.dnf:
+      ansible.builtin.ansible.builtin.dnf:
         name: "*"
         state: latest
     - name: Enable Puppet Tools Release repo
-      dnf:
+      ansible.builtin.dnf:
         disable_gpg_check: true
         name: 'https://yum.puppetlabs.com/puppet-tools-release-el-9.noarch.rpm'
         state: present
     - name: Enable Puppet Release repo
-      dnf:
+      ansible.builtin.dnf:
         disable_gpg_check: true
         name: 'https://yum.puppetlabs.com/puppet-release-el-9.noarch.rpm'
         state: present
     - name: Enable Epel Release repo
-      dnf:
+      ansible.builtin.dnf:
         disable_gpg_check: true
         name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm'
         state: present
     - name: Enable Foreman Release repo
-      dnf:
+      ansible.builtin.dnf:
         disable_gpg_check: true
         name: 'https://yum.theforeman.org/releases/3.10/el9/x86_64/foreman-release.rpm'
         state: present
     - name: Install Foreman installer
-      dnf:
+      ansible.builtin.dnf:
         disable_gpg_check: true
         name: foreman-installer
         state: present
     - name: Setup Foreman installer
       ansible.builtin.command:
         cmd: foreman-installer
-      register: foreman-config
+      register: foremanconfig
       no_log: true
-    - name: show foreman-installer result
+    - name: Show foreman-installer result
       ansible.builtin.debug:
-        msg: '{{ foreman-config }}'
-
-
+        msg: '{{ foremanconfig }}'
+    - name: Save foreman config in local file
+      ansible.builtin.file:
+        path: foremanconfig.txt
+        content: "{{ foremanconfig.stdout_lines }}"
