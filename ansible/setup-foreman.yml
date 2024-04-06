@@ -31,11 +31,21 @@
         disable_gpg_check: true
         name: foreman-installer
         state: present
+    - name: Enable PowerTools/CRB repository
+      ansible.builtin.command:
+        cmd: dnf config-manager --set-enabled crb
+    - name: Enable EPEL
+      ansible.builtin.dnf:
+        name: epel-release
+        state: present
+    - name: Enable ELRepo
+      ansible.builtin.dnf:
+        name: elrepo-release
+        state: present
     - name: Setup Foreman installer
       ansible.builtin.command:
         cmd: foreman-installer
       register: foremanconfig
-      no_log: true
     - name: Show foreman-installer result
       ansible.builtin.debug:
         msg: '{{ foremanconfig }}'
