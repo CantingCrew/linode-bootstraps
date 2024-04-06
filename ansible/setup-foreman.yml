@@ -31,5 +31,13 @@
         disable_gpg_check: true
         name: foreman-installer
         state: present
+    - name: Setup Foreman installer
+      ansible.builtin.command:
+        cmd: foreman-installer
+      register: foreman-config
+      no_log: true
+    - name: show foreman-installer result
+      ansible.builtin.debug:
+        msg: '{{ foreman-config }}'
 
 
