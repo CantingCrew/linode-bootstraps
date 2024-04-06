@@ -28,3 +28,9 @@ ansible-playbook linode-bootstraps/ansible/update-localhost.yml
 Requires:
 - 2 GB RAM
 - AlmaLinux 9
+
+# notes
+
+ansible-collection-theforeman-foreman.noarch : The Foreman Project Ansible modules collection
+ansible-collection-theforeman-operations.noarch : The Foreman Project Ansible operations collection
+

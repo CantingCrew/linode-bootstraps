@@ -56,6 +56,19 @@
       ansible.builtin.dnf:
         name: elrepo-release
         state: present
+    - name: Install foreman packages
+      ansible.builtin.dnf:
+        name: {{ packages }}
+        state: present
+        vars:
+          packages:
+            - foreman-libvirt
+            - foreman-plugin
+            - foreman-vmware
+            - foreman-console
+            - foreman-cli
+            - foreman-ec2
+            - foreman-proxy
     - name: Setup Foreman installer
       ansible.builtin.command:
         cmd: foreman-installer
