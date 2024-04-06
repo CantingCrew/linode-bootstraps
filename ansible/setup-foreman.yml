@@ -26,5 +26,10 @@
         disable_gpg_check: true
         name: 'https://yum.theforeman.org/releases/3.10/el9/x86_64/foreman-release.rpm'
         state: present
+    - name: Install Foreman installer
+      dnf:
+        disable_gpg_check: true
+        name: foreman-installer
+        state: present
 
 
