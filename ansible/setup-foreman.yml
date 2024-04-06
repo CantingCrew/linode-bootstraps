@@ -8,18 +8,22 @@
         state: latest
     - name: Enable Puppet Tools Release repo
       dnf:
+        disable_gpg_check: true
         name: 'https://yum.puppetlabs.com/puppet-tools-release-el-9.noarch.rpm'
         state: present
     - name: Enable Puppet Release repo
       dnf:
+        disable_gpg_check: true
         name: 'https://yum.puppetlabs.com/puppet-release-el-9.noarch.rpm'
         state: present
     - name: Enable Epel Release repo
       dnf:
+        disable_gpg_check: true
         name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm'
         state: present
     - name: Enable Foreman Release repo
       dnf:
+        disable_gpg_check: true
         name: 'https://yum.theforeman.org/releases/3.10/el9/x86_64/foreman-release.rpm'
         state: present
 
