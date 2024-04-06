@@ -3,7 +3,7 @@
   connection: local
   tasks:
     - name: install updates
-      ansible.builtin.ansible.builtin.dnf:
+      ansible.builtin.dnf:
         name: "*"
         state: latest
     - name: Enable Puppet Tools Release repo
