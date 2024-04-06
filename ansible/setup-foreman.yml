@@ -1,0 +1,20 @@
+- name: "update all packages"
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: install updates
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+    - name: Install Puppet repo
+      ansible.builtin.dnf:
+        name: {{ repositories }}
+        state: present
+        vars:
+          repositories:
+            - 'https://yum.puppetlabs.com/puppet-tools-release-el-9.noarch.rpm'
+            - 'https://yum.puppetlabs.com/puppet-release-el-9.noarch.rpm'
+            - 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm'
+            - 'https://yum.theforeman.org/releases/3.10/el9/x86_64/foreman-release.rpm'
+
+
