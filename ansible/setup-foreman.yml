@@ -8,6 +8,7 @@
         section: baseos
         option: baseurl
         value: "https://almalinux.mirror.liteserver.nl/$releasever/baseos"
+        state: present
     - name: disable repo mirrors for AlmaLinux baseos
       community.general.ini_file:
         path: /etc/yum.repos.d/almalinux-baseos.repo
