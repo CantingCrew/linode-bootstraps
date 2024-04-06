@@ -16,7 +16,15 @@ git clone https://github.com/CantingCrew/linode-bootstraps.git
 
 ansible-galaxy collection install community.general
 
-ansible-playbook install-foreman.yml
+ansible-playbook linode-bootstraps/ansible/update-localhost.yml
 
 
 ```
+
+# scripts
+
+## Foreman deploy
+
+Requires:
+- 2 GB RAM
+- AlmaLinux 9
