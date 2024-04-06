@@ -1,0 +1,13 @@
+- name: "Check for updates using DNF"
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Check updates
+      ansible.builtin.command:
+        cmd: dnf check-update --quiet
+      no_log: true
+      register: updates
+      failed_when: updates.rc == 1
+    - name: Show results
+      ansible.builtin.debug:
+        msg: '{{ updates }}'

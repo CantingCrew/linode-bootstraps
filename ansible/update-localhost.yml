@@ -1,0 +1,9 @@
+- name: "update all packages"
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: install updates
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+      # no_log: true
