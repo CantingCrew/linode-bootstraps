@@ -4,7 +4,7 @@
   tasks:
     - name: specific mirror because some have old packages
       community.general.ini_file:
-        path: /etc/yum.repos.d/almalinux-baseos.repol
+        path: /etc/yum.repos.d/almalinux-baseos.repo
         section: baseos
         option: baseurl
         value: "https://almalinux.mirror.liteserver.nl/$releasever/baseos"
