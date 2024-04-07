@@ -23,52 +23,46 @@
     - name: Enable Puppet Tools Release repo
       ansible.builtin.dnf:
         disable_gpg_check: true
-        name: 'https://yum.puppetlabs.com/puppet-tools-release-el-9.noarch.rpm'
+        name: 
+          - 'https://yum.puppetlabs.com/puppet-tools-release-el-9.noarch.rpm'
+          - 'https://yum.puppetlabs.com/puppet-release-el-9.noarch.rpm'
+          - 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm'
+          - 'https://yum.theforeman.org/releases/3.10/el9/x86_64/foreman-release.rpm'
         state: present
-    - name: Enable Puppet Release repo
+    - name: Install Foreman packages
       ansible.builtin.dnf:
         disable_gpg_check: true
-        name: 'https://yum.puppetlabs.com/puppet-release-el-9.noarch.rpm'
+        name: 
         state: present
-    - name: Enable Epel Release repo
-      ansible.builtin.dnf:
-        disable_gpg_check: true
-        name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm'
-        state: present
-    - name: Enable Foreman Release repo
-      ansible.builtin.dnf:
-        disable_gpg_check: true
-        name: 'https://yum.theforeman.org/releases/3.10/el9/x86_64/foreman-release.rpm'
-        state: present
-    - name: Install Foreman installer
-      ansible.builtin.dnf:
-        disable_gpg_check: true
-        name: foreman-installer
-        state: present
-    - name: Enable PowerTools/CRB repository
+    - name: Enable extra repositories
       ansible.builtin.command:
-        cmd: dnf config-manager --set-enabled crb
-    - name: Enable EPEL
-      ansible.builtin.dnf:
-        name: epel-release
-        state: present
-    - name: Enable ELRepo
-      ansible.builtin.dnf:
-        name: elrepo-release
-        state: present
+        cmd: 
+          - dnf config-manager --set-enabled crb
+    - name: Open firewall ports
+      ansible.builtin.firewalld:
+        permanant: yes
+        immediate: yes
+        port: "{{item.port}}/{{item.proto}}"
+        state: enabled
+      with_items:
+        - {port: "80", proto: "tcp" }
+        - {port: "443", proto: "tcp"}
+        - {port: "69", proto: "udp"}
+        - {port: "8140", proto: "tcp"}
     - name: Install foreman packages
       ansible.builtin.dnf:
-        name: {{ packages }}
         state: present
-        vars:
-          packages:
-            - foreman-libvirt
-            - foreman-plugin
-            - foreman-vmware
-            - foreman-console
-            - foreman-cli
-            - foreman-ec2
-            - foreman-proxy
+        name:
+          - foreman-installer
+          - epel-release
+          - elrepo-release
+          - foreman-libvirt
+          - foreman-plugin
+          - foreman-vmware
+          - foreman-console
+          - foreman-cli
+          - foreman-ec2
+          - foreman-proxy
     - name: Setup Foreman installer
       ansible.builtin.command:
         cmd: foreman-installer
@@ -77,6 +71,6 @@
       ansible.builtin.debug:
         msg: '{{ foremanconfig }}'
     - name: Save foreman config in local file
-      ansible.builtin.file:
-        path: foremanconfig.txt
+      ansible.builtin.copy:
+        dest: foremanconfig.txt
         content: "{{ foremanconfig.stdout_lines }}"

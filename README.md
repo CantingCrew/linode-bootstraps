@@ -15,6 +15,7 @@ dnf install -y git ansible-core
 git clone https://github.com/CantingCrew/linode-bootstraps.git
 
 ansible-galaxy collection install community.general
+ansible-galaxy collection install ansible.posix
 
 ansible-playbook linode-bootstraps/ansible/update-localhost.yml
 
