@@ -19,6 +19,8 @@
     - name: install updates
       ansible.builtin.dnf:
         name: "*"
+        exclude:
+          - rubygem-redis
         state: latest
     - name: Enable Puppet Tools Release repo
       ansible.builtin.dnf:
