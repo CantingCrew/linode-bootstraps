@@ -1,5 +1,7 @@
-- name: "update all packages"
+- name: Install Foreman
   hosts: localhost
+  gather_facts: false
+  stdout_callback: yaml
   connection: local
   tasks:
     - name: specific mirror because some have old packages
@@ -68,6 +70,5 @@
         msg: '{{ foremanconfig }}'
     - name: Save foreman config in local file
       ansible.builtin.copy:
-        dest: foremanconfig.txt
+        dest: /root/foremanconfig.txt
         content: "{{ foremanconfig.stdout_lines }}"
-
