@@ -38,7 +38,7 @@
       ansible.builtin.command:
         cmd: dnf config-manager --set-enabled crb
     - name: Open firewall ports
-      ansible.builtin.firewalld:
+      ansible.posix.firewalld:
         permanant: yes
         immediate: yes
         port: "{{item.port}}/{{item.proto}}"
@@ -73,3 +73,4 @@
       ansible.builtin.copy:
         dest: foremanconfig.txt
         content: "{{ foremanconfig.stdout_lines }}"
+
