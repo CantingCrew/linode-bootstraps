@@ -1,7 +1,6 @@
 - name: Install Foreman
   hosts: localhost
   gather_facts: false
-  stdout_callback: yaml
   connection: local
   tasks:
     - name: specific mirror because some have old packages
