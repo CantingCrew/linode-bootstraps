@@ -64,11 +64,3 @@
     - name: Setup Foreman installer
       ansible.builtin.command:
         cmd: foreman-installer
-      register: foremanconfig
-    - name: Show foreman-installer result
-      ansible.builtin.debug:
-        msg: '{{ foremanconfig }}'
-    - name: Save foreman config in local file
-      ansible.builtin.copy:
-        dest: /root/foremanconfig.txt
-        content: "{{ foremanconfig.stdout_lines }}"
