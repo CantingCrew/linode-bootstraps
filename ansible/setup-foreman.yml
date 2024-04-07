@@ -36,8 +36,7 @@
         state: present
     - name: Enable extra repositories
       ansible.builtin.command:
-        cmd: 
-          - dnf config-manager --set-enabled crb
+        cmd: dnf config-manager --set-enabled crb
     - name: Open firewall ports
       ansible.builtin.firewalld:
         permanant: yes
