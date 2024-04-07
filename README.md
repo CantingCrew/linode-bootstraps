@@ -14,10 +14,23 @@ dnf install -y git ansible-core
 
 git clone https://github.com/CantingCrew/linode-bootstraps.git
 
-ansible-galaxy collection install community.general
-ansible-galaxy collection install ansible.posix
+cat << EOF > /etc/ansible/ansible.cfg
+[defaults]
+verbosity=0
+debug=false
+callbacks_enabled = community.general.unixy
+stderr_callback=unixy
+stdout_callback=yaml
+bin_ansible_callbacks = True
+EOF
+
+
+ansible-galaxy collection install community.general --timeout 10
+ansible-galaxy collection install ansible.posix --timeout 10
 
 ansible-playbook linode-bootstraps/ansible/update-localhost.yml
+
+grep 'foreman::params' /var/log/foreman-installer/foreman.log > /root/foremanconfig.txt
 
 
 ```
