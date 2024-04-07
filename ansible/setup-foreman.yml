@@ -31,11 +31,6 @@
           - 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm'
           - 'https://yum.theforeman.org/releases/3.10/el9/x86_64/foreman-release.rpm'
         state: present
-    - name: Install Foreman packages
-      ansible.builtin.dnf:
-        disable_gpg_check: true
-        name: 
-        state: present
     - name: Enable extra repositories
       ansible.builtin.command:
         cmd: dnf config-manager --set-enabled crb
