@@ -36,7 +36,7 @@
         cmd: dnf config-manager --set-enabled crb
     - name: Open firewall ports
       ansible.posix.firewalld:
-        permanant: yes
+        permanent: yes
         immediate: yes
         port: "{{item.port}}/{{item.proto}}"
         state: enabled
